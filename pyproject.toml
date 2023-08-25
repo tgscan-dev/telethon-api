@@ -1,0 +1,19 @@
+[tool.poetry]
+name = "telethon-api"
+version = "0.1.0"
+description = ""
+authors = ["tgscan-dev <tgscan.xyz@outlook.com>"]
+readme = "README.md"
+packages = [{include = "telethon_api"}]
+
+[tool.poetry.dependencies]
+python = "^3.11"
+fastapi = "^0.101.1"
+telethon = "^1.29.3"
+loguru = "^0.7.0"
+uvicorn = "^0.23.2"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
