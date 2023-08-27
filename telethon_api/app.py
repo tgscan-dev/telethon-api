@@ -20,6 +20,7 @@ async def get_chat_history_count(username: str, client_idx: int):
 
         return {"code": 0, "data": f"{count}"}
     except Exception as e:
+        logger.error(f"get_chat_history_count fail: {e}")
         return {"code": -1, "data": f"{e}"}
 
 
@@ -30,15 +31,18 @@ async def main():
         if not filename.endswith(".session"):
             continue
         session_file = os.path.join(sessions_folder, filename)
+        await start_session(session_file)
 
-        try:
-            client = TelegramClient(session_file, api_id, api_hash)
-            await client.start('9')
-            clients.append(client)
-            # print(await client.get_me())
-            logger.info(session_file + " login success")
-        except Exception as e:
-            logger.error(f"{session_file} login fail: {e}")
+
+async def start_session(session_file) :
+    try :
+        client = TelegramClient(session_file, api_id, api_hash)
+        await client.start("9")
+        clients.append(client)
+        # print(await client.get_me())
+        logger.info(f"{session_file} login success")
+    except Exception as e :
+        logger.error(f"{session_file} login fail: {e}")
 
 
 @app.on_event("startup")
